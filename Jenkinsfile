@@ -37,9 +37,7 @@ pipeline {
                     env.INSTANCE_ID = instanceId 
 
                     // Use AWS CLI to describe the instance and check its state (Windows style)
-                    bat '''
-                        aws ec2 describe-instances --instance-ids %INSTANCE_ID% --query 'Reservations[].Instances[].State.Name' --output text > instance_state.txt
-                    '''
+                    bat "aws ec2 describe-instances --instance-ids %INSTANCE_ID% --query 'Reservations[].Instances[].State.Name' --output text > instance_state.txt"
 
                     def instanceState = readFile('instance_state.txt').trim()
 
