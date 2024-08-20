@@ -29,24 +29,9 @@ pipeline {
             }
         }
 
-        stage('Verify EC2 Instance Creation') {
+        stage('Terraform Destroy') { 
             steps {
-                script {
-                    // Retrieve instance ID from Terraform output
-                    def instanceId = bat(script: 'terraform output -raw instance_id', returnStdout: true).trim()
-                    env.INSTANCE_ID = instanceId 
-
-                    // Use AWS CLI to describe the instance and check its state (Windows style)
-                    bat "aws ec2 describe-instances --instance-ids %INSTANCE_ID% --query 'Reservations[].Instances[].State.Name' --output text > instance_state.txt"
-
-                    def instanceState = readFile('instance_state.txt').trim()
-
-                    if (instanceState == 'running') {
-                        echo "EC2 instance created successfully with ID: ${instanceId}"
-                    } else {
-                        error("EC2 instance creation failed! Current state: ${instanceState}")
-                    }
-                }
+                bat 'terraform destroy -auto-approve' 
             }
         }
     }
