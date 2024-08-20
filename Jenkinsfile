@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/gaurav714/jenkins_pipeline_terraform_aws.git'  // Replace with your Git repository URL
+                git url: 'https://github.com/gaurav714/jenkins_pipeline_terraform_aws.git', branch: 'main'  // Replace with your Git repository URL
             }
         }
 
