@@ -1,6 +1,9 @@
 pipeline {
     agent any // Make sure the agent has Terraform and AWS CLI installed for Windows
-
+    environment {
+        AWS_ACCESS_KEY_ID = 'AKIA2UC3BEDBGIIYKFNP'
+        AWS_SECRET_ACCESS_KEY = credentials('secret-access-key')
+    }
     stages {
         stage('Checkout') {
             steps {
