@@ -28,6 +28,11 @@ pipeline {
                 bat 'terraform apply -auto-approve tfplan' 
             }
         }
+        stage("Terraform show Output"){
+            steps{
+                bat 'terraform output -json'
+            }
+        }
 
         stage('Terraform Destroy') { 
             steps {
